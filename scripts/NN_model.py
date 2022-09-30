@@ -22,10 +22,10 @@ from tensorflow.keras import layers
 with open("config.json", "r") as f:
     config = json.load(f)
 
-#define feature set to be used, options are "rdkit", "mordred", "MOE"
+#define feature set to be used, options are "RDKit", "Mordred"
 #define dataset to be used, options are "D300", "D2999", "D5697"
-FEATSET = "FEATSET"
-DATASET = "DATASET"
+FEATSET = "RDKit"
+DATASET = "D300"
 
 #define root directory to shorten paths for inputs and outputs
 ROOT_DIR = "PATH/TO/ROOT_DIRECTORY"
