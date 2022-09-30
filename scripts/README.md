@@ -45,5 +45,3 @@ To run these models, from a terminal, enter the following command:
 Outputs vary between models: \
 RF_model.py outputs 2 .csv files, one of which is for the tight set and, the other, the loose set. Each .csv contains the predicted solubility value per resample ran, with the average prediction
 value and statistics for each molecule in the given testing set.
-grid_build.py, which calls upon NN_model.py, outputs 1 directory for each hyperparameter combination. Each directory contains .csv files which correspond to the tight set predictions, loose set
-predictions, and each of the validation set predictions, per resample ran. Error plots for the validation predictions are also output.

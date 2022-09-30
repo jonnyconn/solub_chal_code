@@ -18,9 +18,13 @@ from sklearn.preprocessing import StandardScaler
 from tensorflow import keras
 from tensorflow.keras import layers
 
-#open config.json file for use in manual grid search
-with open("config.json", "r") as f:
-    config = json.load(f)
+#setup config based on manual grid search, e.g.:
+config = {"layer1": 150,
+          "layer2": 50,
+          "layer3": 30,
+          "learning_rate": 32,
+          "batch_size": 10e-5,
+          "loss": 'mae'}
 
 #define feature set to be used, options are "RDKit", "Mordred"
 #define dataset to be used, options are "D300", "D2999", "D5697"
@@ -33,13 +37,13 @@ ROOT_DIR = "PATH/TO/ROOT_DIRECTORY"
 #separately read in training set, tight testing set, and loose testing set
 df_int = pd.read_csv(f"{ROOT_DIR}/datasets/Training_sets.csv", 
                      header=[0, 1], index_col=0)
-df_tight = pd.read_csv(f"{ROOT_DIR}/datasets/Tight_set.csv")
+df_tight = pd.read_csv(f"{ROOT_DIR}/datasets/Tight_set.csv", 
                        header=[0, 1], index_col=0)
-df_loose = pd.read_csv(f"{ROOT_DIR}/datasets/Loose_set.csv")
+df_loose = pd.read_csv(f"{ROOT_DIR}/datasets/Loose_set.csv", 
                        header=[0, 1], index_col=0)
 
 #define a set of columns as metadata that will not be used for training
-meta_cols = ["Names", "SMILES", "Solubility"]
+meta_cols = ["Name", "SMILES", "Solubility"]
 
 #select training dataset
 df_int = df_int.loc[df_int[('Dataset', DATASET)]]
@@ -47,9 +51,9 @@ df_int.drop(['Dataset', 'Reference'], axis=1, level=0, inplace=True)
 
 #define features as full dataset after dropping metadata columns
 #"Solubility" column is dropped here to ensure it is not used as a training feature
-features_int = df_int.drop(meta_cols, axis=1, level=0)['FEATSET']
-features_tight = df_tight.drop(meta_cols, axis=1, level=0)['FEATSET']
-features_loose = df_loose.drop(meta_cols, axis=1, level=0)['FEATSET']
+features_int = df_int.drop(meta_cols, axis=1, level=0)[FEATSET]
+features_tight = df_tight.drop(meta_cols, axis=1, level=0)[FEATSET]
+features_loose = df_loose.drop(meta_cols, axis=1, level=0)[FEATSET]
 
 #define column "Solubility" as targets
 targets_int = df_int["Solubility"]

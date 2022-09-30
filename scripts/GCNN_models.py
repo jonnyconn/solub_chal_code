@@ -5,6 +5,8 @@ import numpy as np
 from sklearn.metrics import r2_score
 import math
 
+# Train GCNN model for a single train/test split.
+
 # Metrics:
 r2 = dc.metrics.Metric(metric=r2_score, name='r2')
 rmsd = dc.metrics.Metric(metric=dc.metrics.rms_score, name='rmsd')
@@ -15,12 +17,12 @@ metrics_ls = [r2, rmsd, bias, sdep]
 # Filenames:
 ROOT_DIR = 'datasets/'
 dataset_file = ROOT_DIR+'Training_sets.csv'
-dataset_name = 'D300' #DATASET
 tight_set_file = ROOT_DIR+'Tight_set.csv'
 loose_set_file = ROOT_DIR+'Loose_set.csv'
 
 # Model name (GraphConv, DAG or Weave):
 model_name = 'GraphConv'
+dataset_name = 'D300'
 
 # Possible hyperparameters:
 hyperparams = {
@@ -117,7 +119,7 @@ for i, hp_combination in enumerate(product(*hp_vals)):
                                      mode='regression', 
                                      **hp_dict)
 
-    model.fit(train_set, nb_epoch=2)
+    model.fit(train_set, nb_epoch=400)
 
     # Get predictions on test sets:
     test_preds = model.predict(test_set, transformers=[transformer]).squeeze()
