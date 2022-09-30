@@ -27,18 +27,25 @@ nresamples = 50
 njobs = 40
 
 #separately read in training set, tight testing set, and loose testing set
-df_int = pd.read_csv(f"{ROOT_DIR}/{DATASET}_{FEATSET}.csv")
-df_tight = pd.read_csv(f"{ROOT_DIR}/tight_set_{FEATSET}.csv")
-df_loose = pd.read_csv(f"{ROOT_DIR}/loose_set_{FEATSET}.csv")
+df_int = pd.read_csv(f"{ROOT_DIR}/datasets/Training_sets.csv",
+                     header=[0, 1], index_col=0)
+df_tight = pd.read_csv(f"{ROOT_DIR}/datasets/Tight_set.csv",
+                       header=[0, 1], index_col=0)
+df_loose = pd.read_csv(f"{ROOT_DIR}/datasets/Loose_set.csv",
+                       header=[0, 1], index_col=0)
 
 #define a set of columns as metadata that will not be used for training
-meta_cols = ["ID", "Compound", "SMILES", "Solubility"]
+meta_cols = ["Name", "SMILES", "Solubility"]
+
+#select training dataset
+df_int = df_int.loc[df_int[('Dataset', DATASET)]]
+df_int.drop(['Dataset', 'Reference'], axis=1, level=0, inplace=True)
 
 #define features as full dataset after dropping metadata columns
 #"Solubility" column is dropped here to ensure it is not used as a training feature
-features_int = df_int.drop(meta_cols, axis = 1).values
-features_tight = df_tight.drop(meta_cols, axis = 1).values
-features_loose = df_loose.drop(meta_cols, axis = 1).values
+features_int = df_int.drop(meta_cols, axis=1, level=0)[FEATSET].values
+features_tight = df_tight.drop(meta_cols, axis=1, level=0)[FEATSET].values
+features_loose = df_loose.drop(meta_cols, axis=1, level=0)[FEATSET].values
 
 #define column "Solubility" as targets
 targets_int = df_int["Solubility"].values
