@@ -1,0 +1,8 @@
+{
+    "layer1": a,
+    "layer2": b,
+    "layer3": c,
+    "learning_rate": d,
+    "batch_size": e,
+    "loss": f
+}
