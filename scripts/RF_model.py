@@ -15,8 +15,8 @@ ROOT_DIR = "PATH/TO/ROOT_DIRECTORY"
 
 #define feature set to be used, options are "rdkit", "mordred", "MOE"
 #define dataset to be used, options are "D300", "D2999", "D5697"
-FEATSET = "FEATSET"
-DATASET = "DATASET"
+FEATSET = "RDKit"
+DATASET = "D300"
 
 #randomise initial seed with a numpy random number generator for subsequent seeds
 seed = 8434

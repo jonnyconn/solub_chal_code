@@ -10,7 +10,7 @@ import json
 import pandas as pd
 
 #define feature set to be used, options are "rdkit", "mordred", "MOE"
-FEATSET = "FEATSET"
+FEATSET = "RDKit"
 
 #defining hyperparameters to optimise using .json file
 def config_writer(layer1, layer2, layer3, learning_rate, batch_size, loss):
