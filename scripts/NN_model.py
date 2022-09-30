@@ -18,9 +18,13 @@ from sklearn.preprocessing import StandardScaler
 from tensorflow import keras
 from tensorflow.keras import layers
 
-#open config.json file for use in manual grid search
-with open("config.json", "r") as f:
-    config = json.load(f)
+#setup config based on manual grid search, e.g.:
+config = {"layer1": 150,
+          "layer2": 50,
+          "layer3": 30,
+          "learning_rate": 32,
+          "batch_size": 10e-5,
+          "loss": 'mae'}
 
 #define feature set to be used, options are "RDKit", "Mordred"
 #define dataset to be used, options are "D300", "D2999", "D5697"
